@@ -1,7 +1,11 @@
-FROM nginx:alpine
+FROM ubuntu
 
-COPY . /usr/share/nginx/html
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean
+    
+COPY . /var/www/html
 
-CMD [ "nginx", "-g", "daemon off" ]
+CMD ["apachectl", "-D", "FOREGROUND"]
 
 EXPOSE 80
